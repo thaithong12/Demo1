@@ -26,12 +26,12 @@ public class HomeController {
 
     @RequestMapping("/login")
     public String viewLogin(Model model,
-            @RequestParam(value = "error", required = false) 
+            @RequestParam(value = "isError", required = false) 
                     boolean isError) {
         if (isError) {
             model.addAttribute("message", "login fail.");
         }
-        return "login";
+           return "login";
     }
     @RequestMapping(value = "/product-detail", method = RequestMethod.GET)
     public String viewProductDetails() {
