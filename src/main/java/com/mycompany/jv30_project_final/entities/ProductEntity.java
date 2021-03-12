@@ -18,6 +18,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.util.CollectionUtils;
 
 @Entity
 @Table(name = "product")
@@ -62,7 +63,7 @@ public class ProductEntity {
 	 @ManyToMany(mappedBy = "productEntities")
 	 private List<PromotionEntity> promotionEntities;
 	 
-	 @OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	 @OneToMany(mappedBy = "productEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	 private List<ImageEntity> imageEntities;
 
 	 @ManyToOne
@@ -304,6 +305,13 @@ public class ProductEntity {
 
 	public void setOrderDetailEntities(List<OrderDetailEntity> orderDetailEntities) {
 		this.orderDetailEntities = orderDetailEntities;
+	}
+	
+	public String getOneImage() {
+		if(!CollectionUtils.isEmpty(imageEntities))
+			return imageEntities.get(0).getName();
+		else
+			return "default.png";
 	}
 	 
 	 
