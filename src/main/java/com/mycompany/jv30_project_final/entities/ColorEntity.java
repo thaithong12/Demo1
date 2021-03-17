@@ -1,41 +1,46 @@
 package com.mycompany.jv30_project_final.entities;
+
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "color")
 public class ColorEntity {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String name;
-	
-	@ManyToOne
-	@JoinColumn(name = "Product_color_id")
-	private ProductColorEntity productColorEntity;
+
+	@OneToMany(mappedBy = "colorEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<ProductColorEntity> productColorEntities;
 
 	public ColorEntity() {
 		super();
 	}
 
-	public ColorEntity(int id, String name, ProductColorEntity productColorEntity) {
+	public ColorEntity(String name, List<ProductColorEntity> productColorEntities) {
+		super();
+		this.name = name;
+		this.productColorEntities = productColorEntities;
+	}
+
+	public ColorEntity(int id, String name, List<ProductColorEntity> productColorEntities) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.productColorEntity = productColorEntity;
-	}
-
-	public ColorEntity(String name, ProductColorEntity productColorEntity) {
-		super();
-		this.name = name;
-		this.productColorEntity = productColorEntity;
+		this.productColorEntities = productColorEntities;
 	}
 
 	public int getId() {
@@ -54,14 +59,12 @@ public class ColorEntity {
 		this.name = name;
 	}
 
-	public ProductColorEntity getProductColorEntity() {
-		return productColorEntity;
+	public List<ProductColorEntity> getProductColorEntities() {
+		return productColorEntities;
 	}
 
-	public void setProductColorEntity(ProductColorEntity productColorEntity) {
-		this.productColorEntity = productColorEntity;
+	public void setProductColorEntities(List<ProductColorEntity> productColorEntities) {
+		this.productColorEntities = productColorEntities;
 	}
-	
-	
-	
+
 }

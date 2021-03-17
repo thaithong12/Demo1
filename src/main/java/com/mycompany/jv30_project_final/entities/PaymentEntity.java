@@ -1,4 +1,5 @@
 package com.mycompany.jv30_project_final.entities;
+
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -25,52 +26,49 @@ public class PaymentEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private double amount;
-	
+
 	@Column(name = "payment_date")
 	@Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date paymentDate;
+
+	@ManyToOne
+	@JoinColumn(name = "order_payment_id")
+	private OrderEntity orderEntity;
+
+	@ManyToOne
+	@JoinColumn(name = "credit_card_id")
+	private CreditCardEntity creditCardEntity;
 	
-	private String status;
-	
-	 @ManyToOne
-	 @JoinColumn(name = "order_payment_id")
-	 private OrderEntity orderEntity;
-	 
-	 @ManyToOne
-	 @JoinColumn(name = "credit_card_id")
-	 private CreditCardEntity creditCardEntity;
-	 
-	 @Enumerated(EnumType.STRING)
-	 private PaymentStatus role = PaymentStatus.UNPAID;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status_payment")
+	private PaymentStatus statusPayment = PaymentStatus.UNPAID;
 
 	public PaymentEntity() {
 		super();
 	}
 
-	public PaymentEntity(int id, double amount, Date paymentDate, String status, OrderEntity orderEntity,
-			CreditCardEntity creditCardEntity, PaymentStatus role) {
+	public PaymentEntity(int id, double amount, Date paymentDate, OrderEntity orderEntity,
+			CreditCardEntity creditCardEntity, PaymentStatus statusPayment) {
 		super();
 		this.id = id;
 		this.amount = amount;
 		this.paymentDate = paymentDate;
-		this.status = status;
 		this.orderEntity = orderEntity;
 		this.creditCardEntity = creditCardEntity;
-		this.role = role;
+		this.statusPayment = statusPayment;
 	}
 
-	public PaymentEntity(double amount, Date paymentDate, String status, OrderEntity orderEntity,
-			CreditCardEntity creditCardEntity, PaymentStatus role) {
+	public PaymentEntity(double amount, Date paymentDate, OrderEntity orderEntity, CreditCardEntity creditCardEntity,
+			PaymentStatus statusPayment) {
 		super();
 		this.amount = amount;
 		this.paymentDate = paymentDate;
-		this.status = status;
 		this.orderEntity = orderEntity;
 		this.creditCardEntity = creditCardEntity;
-		this.role = role;
+		this.statusPayment = statusPayment;
 	}
 
 	public int getId() {
@@ -97,14 +95,6 @@ public class PaymentEntity {
 		this.paymentDate = paymentDate;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
 	public OrderEntity getOrderEntity() {
 		return orderEntity;
 	}
@@ -121,12 +111,12 @@ public class PaymentEntity {
 		this.creditCardEntity = creditCardEntity;
 	}
 
-	public PaymentStatus getRole() {
-		return role;
+	public PaymentStatus getStatusPayment() {
+		return statusPayment;
 	}
 
-	public void setRole(PaymentStatus role) {
-		this.role = role;
+	public void setStatusPayment(PaymentStatus statusPayment) {
+		this.statusPayment = statusPayment;
 	}
-	 
+
 }

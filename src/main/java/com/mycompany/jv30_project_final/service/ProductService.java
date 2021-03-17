@@ -14,14 +14,20 @@ public class ProductService {
 	private ProductRepository productRepository;
 	
 	public List<ProductEntity> getNewProducts() {
-		List<ProductEntity> entities = (List<ProductEntity>) productRepository.findAll();
-		entities = entities.size() >=4 ? entities.subList(0, 4) : entities.subList(0, entities.size());
-		return entities;
+		return productRepository.getNewProducts();
+	}
+	
+	public List<ProductEntity> getTopSellingProducts(){
+		return productRepository.getTopSellingProduct();
 	}
 	
 	public List<ProductEntity> getRandomProductLimit(int s, int e){
 		List<ProductEntity> entities = (List<ProductEntity>) productRepository.findAll();
 		entities = entities.subList(s, e);
 		return entities;
+	}
+	
+	public ProductEntity getProductById(int id) {
+		return productRepository.findOne(id);
 	}
 }

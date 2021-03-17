@@ -1,15 +1,11 @@
 package com.mycompany.jv30_project_final.entities;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,39 +15,54 @@ public class ProductColorEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private double price;
+
+	private double qantity;
+
+	@ManyToOne
+	@JoinColumn(name = "color_id")
+	private ColorEntity colorEntity;
 	
-	private double quantity;
-	
-	 @ManyToOne
-	 @JoinColumn(name = "product_id")
-	 private ProductEntity productEntity;
-	 
-	 @OneToMany(mappedBy = "productColorEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	 private List<ColorEntity>  colorEntities;
+	@ManyToOne
+	@JoinColumn(name = "product_id")
+	private ProductEntity productEntity;
+
+	public ProductColorEntity(int id, double price, double qantity, ColorEntity colorEntity,
+			ProductEntity productEntity) {
+		super();
+		this.id = id;
+		this.price = price;
+		this.qantity = qantity;
+		this.colorEntity = colorEntity;
+		this.productEntity = productEntity;
+	}
+
+	public ProductEntity getProductEntity() {
+		return productEntity;
+	}
+
+	public void setProductEntity(ProductEntity productEntity) {
+		this.productEntity = productEntity;
+	}
 
 	public ProductColorEntity() {
 		super();
 	}
 
-	public ProductColorEntity(int id, double price, double quantity, ProductEntity productEntity,
-			List<ColorEntity> colorEntities) {
+	public ProductColorEntity(double price, double qantity, ColorEntity colorEntity) {
+		super();
+		this.price = price;
+		this.qantity = qantity;
+		this.colorEntity = colorEntity;
+	}
+
+	public ProductColorEntity(int id, double price, double qantity, ColorEntity colorEntity) {
 		super();
 		this.id = id;
 		this.price = price;
-		this.quantity = quantity;
-		this.productEntity = productEntity;
-		this.colorEntities = colorEntities;
-	}
-
-	public ProductColorEntity(double price, double quantity, ProductEntity productEntity,
-			List<ColorEntity> colorEntities) {
-		super();
-		this.price = price;
-		this.quantity = quantity;
-		this.productEntity = productEntity;
-		this.colorEntities = colorEntities;
+		this.qantity = qantity;
+		this.colorEntity = colorEntity;
 	}
 
 	public int getId() {
@@ -70,29 +81,20 @@ public class ProductColorEntity {
 		this.price = price;
 	}
 
-	public double getQuantity() {
-		return quantity;
+	public double getQantity() {
+		return qantity;
 	}
 
-	public void setQuantity(double quantity) {
-		this.quantity = quantity;
+	public void setQantity(double qantity) {
+		this.qantity = qantity;
 	}
 
-	public ProductEntity getProductEntity() {
-		return productEntity;
+	public ColorEntity getColorEntity() {
+		return colorEntity;
 	}
 
-	public void setProductEntity(ProductEntity productEntity) {
-		this.productEntity = productEntity;
+	public void setColorEntity(ColorEntity colorEntity) {
+		this.colorEntity = colorEntity;
 	}
 
-	public List<ColorEntity> getColorEntities() {
-		return colorEntities;
-	}
-
-	public void setColorEntities(List<ColorEntity> colorEntities) {
-		this.colorEntities = colorEntities;
-	}
-	 
-	 
 }

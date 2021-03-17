@@ -1,4 +1,5 @@
 package com.mycompany.jv30_project_final.entities;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,17 +15,19 @@ public class OrderDetailEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private double price;
-	
+
 	private double discount;
-	
+
 	private double quantity;
-	
+
+	private int count;
+
 	@ManyToOne
 	@JoinColumn(name = "product_order_detail_id")
 	private ProductEntity productEntity;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "order_id")
 	private OrderEntity orderEntity;
@@ -33,25 +36,35 @@ public class OrderDetailEntity {
 		super();
 	}
 
-	public OrderDetailEntity(int id, double price, double discount, double quantity, ProductEntity productEntity,
+	public OrderDetailEntity(double price, double discount, double quantity, int count, ProductEntity productEntity,
 			OrderEntity orderEntity) {
+		super();
+		this.price = price;
+		this.discount = discount;
+		this.quantity = quantity;
+		this.count = count;
+		this.productEntity = productEntity;
+		this.orderEntity = orderEntity;
+	}
+
+	public OrderDetailEntity(int id, double price, double discount, double quantity, int count,
+			ProductEntity productEntity, OrderEntity orderEntity) {
 		super();
 		this.id = id;
 		this.price = price;
 		this.discount = discount;
 		this.quantity = quantity;
+		this.count = count;
 		this.productEntity = productEntity;
 		this.orderEntity = orderEntity;
 	}
 
-	public OrderDetailEntity(double price, double discount, double quantity, ProductEntity productEntity,
-			OrderEntity orderEntity) {
-		super();
-		this.price = price;
-		this.discount = discount;
-		this.quantity = quantity;
-		this.productEntity = productEntity;
-		this.orderEntity = orderEntity;
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
 	}
 
 	public int getId() {
@@ -101,6 +114,5 @@ public class OrderDetailEntity {
 	public void setOrderEntity(OrderEntity orderEntity) {
 		this.orderEntity = orderEntity;
 	}
-	
-	
+
 }

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div id="tab3" class="tab-pane fade in">
@@ -75,54 +75,29 @@
 		<div class="col-md-6">
 			<div id="reviews">
 				<ul class="reviews">
-					<li>
-						<div class="review-heading">
-							<h5 class="name">John</h5>
-							<p class="date">27 DEC 2018, 8:0 PM</p>
-							<div class="review-rating">
-								<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star-o empty"></i>
+					<c:forEach items="${comments}" var="cmt">
+						<li>
+							<div class="review-heading">
+								<h5 class="name">${cmt.accountEntity.email }</h5>
+								<p class="date">${cmt.commentDate }</p>
+								<c:forEach items="${votes}" var="vote">
+									<c:if test="${vote.accountEntity.id == cmt.accountEntity.id }">
+										<c:forEach begin="1" end="${vote.vote}" step="1">
+											<i class="fa fa-star"></i>
+										</c:forEach>
+										
+									</c:if>
+									
+								</c:forEach>
+								
+									 
+								</div>
 							</div>
-						</div>
-						<div class="review-body">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-								sed do eiusmod tempor incididunt ut labore et dolore magna
-								aliqua</p>
-						</div>
-					</li>
-					<li>
-						<div class="review-heading">
-							<h5 class="name">John</h5>
-							<p class="date">27 DEC 2018, 8:0 PM</p>
-							<div class="review-rating">
-								<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star-o empty"></i>
+							<div class="review-body">
+								<p>${cmt.content}</p>
 							</div>
-						</div>
-						<div class="review-body">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-								sed do eiusmod tempor incididunt ut labore et dolore magna
-								aliqua</p>
-						</div>
-					</li>
-					<li>
-						<div class="review-heading">
-							<h5 class="name">John</h5>
-							<p class="date">27 DEC 2018, 8:0 PM</p>
-							<div class="review-rating">
-								<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-									class="fa fa-star-o empty"></i>
-							</div>
-						</div>
-						<div class="review-body">
-							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-								sed do eiusmod tempor incididunt ut labore et dolore magna
-								aliqua</p>
-						</div>
-					</li>
+						</li>
+					</c:forEach>
 				</ul>
 				<ul class="reviews-pagination">
 					<li class="active">1</li>

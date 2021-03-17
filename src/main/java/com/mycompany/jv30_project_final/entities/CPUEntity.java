@@ -19,10 +19,6 @@ public class CPUEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	private String name;
-	
-	private String description;
-	
 	@Column(name = "cpu_technology")
 	private String cpuTechology;
 	
@@ -36,49 +32,12 @@ public class CPUEntity {
 		super();
 	}
 
-	public CPUEntity(int id, String name, String description, String cpuTechology, String cpuSpeed,
-			List<ProductEntity> productEntities) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.cpuTechology = cpuTechology;
-		this.cpuSpeed = cpuSpeed;
-		this.productEntities = productEntities;
-	}
-
-	public CPUEntity(String name, String description, String cpuTechology, String cpuSpeed,
-			List<ProductEntity> productEntities) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.cpuTechology = cpuTechology;
-		this.cpuSpeed = cpuSpeed;
-		this.productEntities = productEntities;
-	}
-
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public String getCpuTechology() {

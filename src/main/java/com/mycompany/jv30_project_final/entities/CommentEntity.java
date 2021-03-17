@@ -34,7 +34,7 @@ public class CommentEntity {
 	 private AccountEntity accountEntity;
 	 
 	 @ManyToOne
-	 @JoinColumn(name = "product_comment")
+	 @JoinColumn(name = "product_comment_id")
 	 private ProductEntity productEntity;
 
 	public CommentEntity() {

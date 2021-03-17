@@ -1,4 +1,5 @@
 package com.mycompany.jv30_project_final.entities;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -17,34 +18,30 @@ public class CategoryEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String name;
-	
+
 	private String description;
-	
-	private String status;
-	
-	 @OneToMany(mappedBy = "categoryEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	 private List<ProductEntity> productEntitys;
+
+	@OneToMany(mappedBy = "categoryEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<ProductEntity> productEntitys;
 
 	public CategoryEntity() {
 		super();
 	}
 
-	public CategoryEntity(int id, String name, String description, String status, List<ProductEntity> productEntitys) {
+	public CategoryEntity(int id, String name, String description, List<ProductEntity> productEntitys) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
-		this.status = status;
 		this.productEntitys = productEntitys;
 	}
 
-	public CategoryEntity(String name, String description, String status, List<ProductEntity> productEntitys) {
+	public CategoryEntity(String name, String description, List<ProductEntity> productEntitys) {
 		super();
 		this.name = name;
 		this.description = description;
-		this.status = status;
 		this.productEntitys = productEntitys;
 	}
 
@@ -72,14 +69,6 @@ public class CategoryEntity {
 		this.description = description;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
 	public List<ProductEntity> getProductEntitys() {
 		return productEntitys;
 	}
@@ -87,6 +76,5 @@ public class CategoryEntity {
 	public void setProductEntitys(List<ProductEntity> productEntitys) {
 		this.productEntitys = productEntitys;
 	}
-	 
-	 
+
 }

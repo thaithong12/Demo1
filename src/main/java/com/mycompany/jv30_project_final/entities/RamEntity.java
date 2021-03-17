@@ -1,4 +1,5 @@
 package com.mycompany.jv30_project_final.entities;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -18,33 +19,35 @@ public class RamEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
-	private String name;
-	
+
+	@Column(name = "ram_type")
+	private String ramType;
+
 	@Column(name = "bus_ram_Speed")
 	private String busRamSpeed;
-	
+
 	private String description;
-	
-	 @OneToMany(mappedBy = "ramEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	 private List<ProductEntity> productEntities;
+
+	@OneToMany(mappedBy = "ramEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<ProductEntity> productEntities;
 
 	public RamEntity() {
 		super();
 	}
 
-	public RamEntity(int id, String name, String busRamSpeed, String description, List<ProductEntity> productEntities) {
+	public RamEntity(int id, String ramType, String busRamSpeed, String description,
+			List<ProductEntity> productEntities) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.ramType = ramType;
 		this.busRamSpeed = busRamSpeed;
 		this.description = description;
 		this.productEntities = productEntities;
 	}
 
-	public RamEntity(String name, String busRamSpeed, String description, List<ProductEntity> productEntities) {
+	public RamEntity(String ramType, String busRamSpeed, String description, List<ProductEntity> productEntities) {
 		super();
-		this.name = name;
+		this.ramType = ramType;
 		this.busRamSpeed = busRamSpeed;
 		this.description = description;
 		this.productEntities = productEntities;
@@ -58,12 +61,12 @@ public class RamEntity {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getRamType() {
+		return ramType;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setRamType(String ramType) {
+		this.ramType = ramType;
 	}
 
 	public String getBusRamSpeed() {
@@ -89,5 +92,5 @@ public class RamEntity {
 	public void setProductEntities(List<ProductEntity> productEntities) {
 		this.productEntities = productEntities;
 	}
-	 
+
 }

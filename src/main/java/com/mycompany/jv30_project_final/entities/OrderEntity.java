@@ -1,4 +1,5 @@
 package com.mycompany.jv30_project_final.entities;
+
 import java.util.Date;
 import java.util.List;
 
@@ -29,35 +30,36 @@ public class OrderEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column(name = "date_of_purchase")
 	@Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dateOfPurchse;
-	
+
 	private double total;
-	
+
 	private String status;
-	
-	 @ManyToOne
-	 @JoinColumn(name = "account_order_id")
-	 private AccountEntity accountEntity;
-	 
-	 @OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	 private List<OrderDetailEntity> orderDetailEntities;
-	 
-	 @OneToMany(mappedBy = "orderEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	 private List<PaymentEntity> paymentEntities;
-	 
-	 @Enumerated(EnumType.STRING)
-	 private OrderStatus role = OrderStatus.COMFIRM;
+
+	@ManyToOne
+	@JoinColumn(name = "account_order_id")
+	private AccountEntity accountEntity;
+
+	@OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<OrderDetailEntity> orderDetailEntities;
+
+	@OneToMany(mappedBy = "orderEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<PaymentEntity> paymentEntities;
+
+	@Column(name = "order_status")
+	@Enumerated(EnumType.STRING)
+	private OrderStatus orderStatus = OrderStatus.COMFIRM;
 
 	public OrderEntity() {
 		super();
 	}
 
 	public OrderEntity(int id, Date dateOfPurchse, double total, String status, AccountEntity accountEntity,
-			List<OrderDetailEntity> orderDetailEntities, List<PaymentEntity> paymentEntities, OrderStatus role) {
+			List<OrderDetailEntity> orderDetailEntities, List<PaymentEntity> paymentEntities, OrderStatus orderStatus) {
 		super();
 		this.id = id;
 		this.dateOfPurchse = dateOfPurchse;
@@ -66,11 +68,11 @@ public class OrderEntity {
 		this.accountEntity = accountEntity;
 		this.orderDetailEntities = orderDetailEntities;
 		this.paymentEntities = paymentEntities;
-		this.role = role;
+		this.orderStatus = orderStatus;
 	}
 
 	public OrderEntity(Date dateOfPurchse, double total, String status, AccountEntity accountEntity,
-			List<OrderDetailEntity> orderDetailEntities, List<PaymentEntity> paymentEntities, OrderStatus role) {
+			List<OrderDetailEntity> orderDetailEntities, List<PaymentEntity> paymentEntities, OrderStatus orderStatus) {
 		super();
 		this.dateOfPurchse = dateOfPurchse;
 		this.total = total;
@@ -78,7 +80,7 @@ public class OrderEntity {
 		this.accountEntity = accountEntity;
 		this.orderDetailEntities = orderDetailEntities;
 		this.paymentEntities = paymentEntities;
-		this.role = role;
+		this.orderStatus = orderStatus;
 	}
 
 	public int getId() {
@@ -137,12 +139,12 @@ public class OrderEntity {
 		this.paymentEntities = paymentEntities;
 	}
 
-	public OrderStatus getRole() {
-		return role;
+	public OrderStatus getOrderStatus() {
+		return orderStatus;
 	}
 
-	public void setRole(OrderStatus role) {
-		this.role = role;
+	public void setOrderStatus(OrderStatus orderStatus) {
+		this.orderStatus = orderStatus;
 	}
-	 
+
 }

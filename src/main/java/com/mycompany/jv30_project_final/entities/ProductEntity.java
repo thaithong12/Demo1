@@ -1,4 +1,5 @@
 package com.mycompany.jv30_project_final.entities;
+
 import java.util.Date;
 import java.util.List;
 
@@ -27,75 +28,117 @@ public class ProductEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private String name;
-	
+
 	private String status;
-	
+
 	@Column(name = "support_maximun_ram")
 	private String supportMaximunRam;
-	
+
 	@Column(name = "hard_driver")
 	private String hardDriver;
-	
+
 	@Column(name = "screen_size")
 	private String screenSize;
-	
+
 	private String resolution;
-	
+
 	private String brand;
-	
+
 	@Column(name = "proteted_time")
 	private String protetedTime;
-	
+
 	private double price;
 	
-	
+	@Column(length = 5000)
+	private String description;
+
+	@Column(name = "publish_date")
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date publishDate;
+
 	@Column(name = "day_of_sale")
 	@Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date DayOfSale;
-	
-	 @ManyToOne
-	 @JoinColumn(name = "category_id")
-	 private CategoryEntity categoryEntity;
-	 
-	 @ManyToMany(mappedBy = "productEntities")
-	 private List<PromotionEntity> promotionEntities;
-	 
-	 @OneToMany(mappedBy = "productEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	 private List<ImageEntity> imageEntities;
 
-	 @ManyToOne
-	 @JoinColumn(name = "cpu_id")
-	 private CPUEntity cpuEntity;
-	 
-	 @ManyToOne
-	 @JoinColumn(name = "ram_id")
-	 private RamEntity ramEntity;
-	 
-	 @OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	 private List<ProductColorEntity>  productColorEntities;
-	 
-	 @OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	 private List<CommentEntity> commentEntities;
-	 
-	 @OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	 private List<VoteEntity> voteEntities;
-	 
-	 @OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	 private List<OrderDetailEntity> orderDetailEntities;
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private CategoryEntity categoryEntity;
+
+	@ManyToMany(mappedBy = "productEntities")
+	private List<PromotionEntity> promotionEntities;
+
+	@OneToMany(mappedBy = "productEntity", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<ImageEntity> imageEntities;
+
+	@ManyToOne
+	@JoinColumn(name = "cpu_id")
+	private CPUEntity cpuEntity;
+
+	@ManyToOne
+	@JoinColumn(name = "ram_id")
+	private RamEntity ramEntity;
+
+	@OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<ProductColorEntity> productColorEntities;
+
+	@OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<CommentEntity> commentEntities;
+
+	@OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<VoteEntity> voteEntities;
+
+	@OneToMany(mappedBy = "productEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<OrderDetailEntity> orderDetailEntities;
+	
+	
 
 	public ProductEntity() {
 		super();
 	}
+	
+
+	public ProductEntity(String name, String status, String supportMaximunRam, String hardDriver, String screenSize,
+			String resolution, String brand, String protetedTime, double price, String description, Date publishDate,
+			Date dayOfSale, CategoryEntity categoryEntity, List<PromotionEntity> promotionEntities,
+			List<ImageEntity> imageEntities, CPUEntity cpuEntity, RamEntity ramEntity,
+			List<ProductColorEntity> productColorEntities, List<CommentEntity> commentEntities,
+			List<VoteEntity> voteEntities, List<OrderDetailEntity> orderDetailEntities) {
+		super();
+		this.name = name;
+		this.status = status;
+		this.supportMaximunRam = supportMaximunRam;
+		this.hardDriver = hardDriver;
+		this.screenSize = screenSize;
+		this.resolution = resolution;
+		this.brand = brand;
+		this.protetedTime = protetedTime;
+		this.price = price;
+		this.description = description;
+		this.publishDate = publishDate;
+		DayOfSale = dayOfSale;
+		this.categoryEntity = categoryEntity;
+		this.promotionEntities = promotionEntities;
+		this.imageEntities = imageEntities;
+		this.cpuEntity = cpuEntity;
+		this.ramEntity = ramEntity;
+		this.productColorEntities = productColorEntities;
+		this.commentEntities = commentEntities;
+		this.voteEntities = voteEntities;
+		this.orderDetailEntities = orderDetailEntities;
+	}
+
+
 
 	public ProductEntity(int id, String name, String status, String supportMaximunRam, String hardDriver,
-			String screenSize, String resolution, String brand, String protetedTime, double price, Date dayOfSale,
-			CategoryEntity categoryEntity, List<PromotionEntity> promotionEntities, List<ImageEntity> imageEntities,
-			CPUEntity cpuEntity, RamEntity ramEntity, List<ProductColorEntity> productColorEntities,
-			List<CommentEntity> commentEntities, List<VoteEntity> voteEntities,
-			List<OrderDetailEntity> orderDetailEntities) {
+			String screenSize, String resolution, String brand, String protetedTime, double price, String description,
+			Date publishDate, Date dayOfSale, CategoryEntity categoryEntity, List<PromotionEntity> promotionEntities,
+			List<ImageEntity> imageEntities, CPUEntity cpuEntity, RamEntity ramEntity,
+			List<ProductColorEntity> productColorEntities, List<CommentEntity> commentEntities,
+			List<VoteEntity> voteEntities, List<OrderDetailEntity> orderDetailEntities) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -107,6 +150,8 @@ public class ProductEntity {
 		this.brand = brand;
 		this.protetedTime = protetedTime;
 		this.price = price;
+		this.description = description;
+		this.publishDate = publishDate;
 		DayOfSale = dayOfSale;
 		this.categoryEntity = categoryEntity;
 		this.promotionEntities = promotionEntities;
@@ -119,32 +164,26 @@ public class ProductEntity {
 		this.orderDetailEntities = orderDetailEntities;
 	}
 
-	public ProductEntity(String name, String status, String supportMaximunRam, String hardDriver, String screenSize,
-			String resolution, String brand, String protetedTime, double price, Date dayOfSale,
-			CategoryEntity categoryEntity, List<PromotionEntity> promotionEntities, List<ImageEntity> imageEntities,
-			CPUEntity cpuEntity, RamEntity ramEntity, List<ProductColorEntity> productColorEntities,
-			List<CommentEntity> commentEntities, List<VoteEntity> voteEntities,
-			List<OrderDetailEntity> orderDetailEntities) {
-		super();
-		this.name = name;
-		this.status = status;
-		this.supportMaximunRam = supportMaximunRam;
-		this.hardDriver = hardDriver;
-		this.screenSize = screenSize;
-		this.resolution = resolution;
-		this.brand = brand;
-		this.protetedTime = protetedTime;
-		this.price = price;
-		DayOfSale = dayOfSale;
-		this.categoryEntity = categoryEntity;
-		this.promotionEntities = promotionEntities;
-		this.imageEntities = imageEntities;
-		this.cpuEntity = cpuEntity;
-		this.ramEntity = ramEntity;
-		this.productColorEntities = productColorEntities;
-		this.commentEntities = commentEntities;
-		this.voteEntities = voteEntities;
-		this.orderDetailEntities = orderDetailEntities;
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+
+	public Date getPublishDate() {
+		return publishDate;
+	}
+
+	public void setPublishDate(Date publishDate) {
+		this.publishDate = publishDate;
 	}
 
 	public int getId() {
@@ -308,11 +347,12 @@ public class ProductEntity {
 	}
 	
 	public String getOneImage() {
-		if(!CollectionUtils.isEmpty(imageEntities))
+		if(!CollectionUtils.isEmpty(imageEntities)) {
 			return imageEntities.get(0).getName();
-		else
+		}
+		else {
 			return "default.png";
+		}
 	}
-	 
-	 
+
 }
