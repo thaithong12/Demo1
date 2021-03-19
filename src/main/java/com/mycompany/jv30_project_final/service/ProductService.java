@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mycompany.jv30_project_final.entities.CategoryEntity;
 import com.mycompany.jv30_project_final.entities.ProductEntity;
 import com.mycompany.jv30_project_final.repositories.ProductRepository;
 
@@ -29,5 +30,13 @@ public class ProductService {
 	
 	public ProductEntity getProductById(int id) {
 		return productRepository.findOne(id);
+	}
+	
+	public List<ProductEntity> getAllProducts() {
+		return (List<ProductEntity>) productRepository.findAll();
+	}
+	
+	public List<ProductEntity> findByCategoryEntity(CategoryEntity categoryEntity) {
+		return productRepository.findByCategoryEntity(categoryEntity);
 	}
 }

@@ -1,6 +1,5 @@
 package com.mycompany.jv30_project_final.repositories;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;

@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mycompany.jv30_project_final.entities.AccountEntity;
+import com.mycompany.jv30_project_final.entities.CategoryEntity;
 import com.mycompany.jv30_project_final.entities.ColorEntity;
 import com.mycompany.jv30_project_final.entities.CommentEntity;
 import com.mycompany.jv30_project_final.entities.ProductColorEntity;
 import com.mycompany.jv30_project_final.entities.ProductEntity;
 import com.mycompany.jv30_project_final.entities.VoteEntity;
+import com.mycompany.jv30_project_final.service.CategoryService;
 import com.mycompany.jv30_project_final.service.CommentService;
 import com.mycompany.jv30_project_final.service.ProductColorService;
 import com.mycompany.jv30_project_final.service.ProductService;
@@ -39,15 +41,18 @@ public class HomeController {
 
 	@Autowired
 	private ProductService productService;
-	
+
 	@Autowired
 	private ProductColorService productColorService;
-	
+
 	@Autowired
-	private CommentService  commentService;
-	
+	private CommentService commentService;
+
 	@Autowired
 	private VoteService voteService;
+
+	@Autowired
+	private CategoryService categoryService;
 
 	@RequestMapping(value = { "/", "/home" }, method = RequestMethod.GET)
 	public String viewHome(Model model) {
@@ -64,7 +69,7 @@ public class HomeController {
 		model.addAttribute("topselling1", productService.getRandomProductLimit(0, 4));
 		model.addAttribute("topselling2", productService.getRandomProductLimit(1, 5));
 		model.addAttribute("newproducts", productService.getNewProducts());
-		ProductEntity a = new ProductEntity();
+
 		return "home";
 	}
 
@@ -78,24 +83,53 @@ public class HomeController {
 
 	@RequestMapping(value = { "/product-detail" }, method = RequestMethod.GET)
 	public String wiewProduct(Model model, @RequestParam("id") int id) {
-		
+
 		ProductEntity product = productService.getProductById(id);
-		
+
 		List<VoteEntity> voteEntities = voteService.findByProductEntity(product);
 		List<CommentEntity> commentEntities = commentService.findByProductEntity(product);
 		List<ProductColorEntity> colorProductEntities = productColorService.findByProductEntity(product);
 		List<ColorEntity> colorEntities = new ArrayList<ColorEntity>();
-		
-		if (!CollectionUtils.isEmpty(voteEntities)) 
+
+		if (!CollectionUtils.isEmpty(voteEntities))
 			model.addAttribute("votes", voteEntities);
-		if (!CollectionUtils.isEmpty(commentEntities)) 
+		if (!CollectionUtils.isEmpty(commentEntities))
 			model.addAttribute("comments", commentEntities);
-		
+
 		if (!CollectionUtils.isEmpty(colorProductEntities))
-			for(ProductColorEntity p : colorProductEntities) 
+			for (ProductColorEntity p : colorProductEntities)
 				colorEntities.add(p.getColorEntity());
 		model.addAttribute("colors", colorEntities);
 		model.addAttribute("product", product);
 		return "product-detail";
 	}
+
+	@RequestMapping(value = { "/store" }, method = RequestMethod.GET)
+	public String viewStore(Model model) {
+		List<CategoryEntity> categoryEntities = categoryService.getAllCategories();
+		List<ProductEntity> productEntities = productService.getAllProducts();
+
+		if (!CollectionUtils.isEmpty(productEntities))
+			model.addAttribute("products", productEntities);
+		if (!CollectionUtils.isEmpty(categoryEntities)) {
+			model.addAttribute("categories", categoryEntities);
+		}
+
+		return "store";
+	}
+
+	@RequestMapping(value = "/store-detail", method = RequestMethod.GET)
+	public String viewDetailsCategory(@RequestParam("id") int id, Model model) {
+		List<CategoryEntity> categoryEntities = categoryService.getAllCategories();
+		CategoryEntity categoryEntity = categoryService.findOne(id);
+		List<ProductEntity> productEntities = productService.findByCategoryEntity(categoryEntity);
+
+		if (!CollectionUtils.isEmpty(productEntities))
+			model.addAttribute("products", productEntities);
+		if (!CollectionUtils.isEmpty(categoryEntities)) {
+			model.addAttribute("categories", categoryEntities);
+		}
+		return "store";
+	}
+
 }

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import com.mycompany.jv30_project_final.entities.CategoryEntity;
 import com.mycompany.jv30_project_final.entities.ProductEntity;
 
 @Repository
@@ -25,4 +26,6 @@ public interface ProductRepository extends CrudRepository<ProductEntity, Integer
 			+ "limit 5 "
 			+ "", nativeQuery = true)
 	public List<ProductEntity> getTopSellingProduct();
+	
+	public List<ProductEntity> findByCategoryEntity(CategoryEntity categoryEntity);
 }

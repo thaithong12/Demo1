@@ -47,7 +47,8 @@
 				<h3 class="product-price">
 				<span id="price-after">
 				<fmt:formatNumber type="number" pattern="###,###"
-						value="${product.price}" /> vnd</span>
+						value="${product.price}" /> vnd
+						</span>
 					
 					<del class="product-old-price">$990.00</del>
 				</h3>
@@ -76,7 +77,7 @@
 							class="qty-down">-</span>
 					</div>
 				</div>
-				<button class="add-to-cart-btn">
+				<button class="add-to-cart-btn" id="add-to-cart-btn">
 					<i class="fa fa-shopping-cart"></i> add to cart
 				</button>
 			</div>
