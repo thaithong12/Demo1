@@ -46,30 +46,14 @@
 
 					<!-- Cart -->
 					<div class="dropdown">
-						<a class="dropdown-toggle" data-toggle="dropdown"
+						<a class="dropdown-toggle" id="btn-info-cart" data-toggle="dropdown"
 							aria-expanded="true"> <i class="fa fa-shopping-cart"></i> <span>Your
 								Cart</span>
 							<div class="qty">3</div>
 						</a>
 						<div class="cart-dropdown">
 							<div class="cart-list">
-								<div class="product-widget">
-									<div class="product-img">
-										<img src="<c:url value="resources/images/product01.png"/>"
-											alt="">
-									</div>
-									<div class="product-body">
-										<h3 class="product-name">
-											<a href="#">product name goes here</a>
-										</h3>
-										<h4 class="product-price">
-											<span class="qty">1x</span>$980.00
-										</h4>
-									</div>
-									<button class="delete">
-										<i class="fa fa-close"></i>
-									</button>
-								</div>
+								
 
 								<div class="product-widget">
 									<div class="product-img">

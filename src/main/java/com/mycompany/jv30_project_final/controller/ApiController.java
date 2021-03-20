@@ -69,7 +69,7 @@ public class ApiController {
 	@SuppressWarnings("static-access")
 	@RequestMapping(value = "/handle-add-cart", method = RequestMethod.POST)
 	@ResponseBody
-	public ResponseEntity<ProductModel> hanldeAddCart(@RequestBody ProductModel productModel, HttpSession session, Model model) {
+	public ResponseEntity<List<ProductModel>> hanldeAddCart(@RequestBody ProductModel productModel, HttpSession session, Model model) {
 
 		ProductEntity p = productService.getProductById(productModel.getProductId());
 
@@ -114,14 +114,26 @@ public class ApiController {
 						}
 						
 					}
+					
 				}
+				List<ProductModel> carts = (List<ProductModel>) session.getAttribute("cart");
 				
-				
-				return new ResponseEntity<ProductColorModel>(HttpStatus.OK).ok(pModel);
+				return new ResponseEntity<List<ProductModel>>(HttpStatus.OK).ok(carts);
 			}
 		}
-		return new ResponseEntity<ProductModel>(HttpStatus.NO_CONTENT).ok(null);
+		return new ResponseEntity<List<ProductModel>>(HttpStatus.NO_CONTENT).ok(null);
 
+	}
+	
+	@SuppressWarnings("static-access")
+	@RequestMapping(value = "/info-cart", method = RequestMethod.POST)
+	@ResponseBody
+	public ResponseEntity<List<ProductModel>> getInfoCart(HttpSession session) {
+		List<ProductModel> carts = (List<ProductModel>) session.getAttribute("cart");
+		if (!CollectionUtils.isEmpty(carts)) {
+			return new ResponseEntity<List<ProductModel>>(HttpStatus.OK).ok(carts);
+		}			
+		return new ResponseEntity<List<ProductModel>>(HttpStatus.NO_CONTENT).ok(null);
 	}
 	
 	
