@@ -8,6 +8,8 @@ package com.mycompany.jv30_project_final.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,6 +28,7 @@ import com.mycompany.jv30_project_final.entities.CommentEntity;
 import com.mycompany.jv30_project_final.entities.ProductColorEntity;
 import com.mycompany.jv30_project_final.entities.ProductEntity;
 import com.mycompany.jv30_project_final.entities.VoteEntity;
+import com.mycompany.jv30_project_final.model.ProductModel;
 import com.mycompany.jv30_project_final.service.CategoryService;
 import com.mycompany.jv30_project_final.service.CommentService;
 import com.mycompany.jv30_project_final.service.ProductColorService;
@@ -130,6 +133,23 @@ public class HomeController {
 			model.addAttribute("categories", categoryEntities);
 		}
 		return "store";
+	}
+	
+
+	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
+	public String viewCheckOut ( Model model ,HttpSession session) {
+		
+		List<ProductModel> carts = (List<ProductModel>) session.getAttribute("cart");
+		if(!CollectionUtils.isEmpty(carts)) {
+			model.addAttribute("ghs", carts);
+			double total = 0;
+			for(ProductModel p : carts) 
+				total += p.getPrice() + p.getQuantity();
+			model.addAttribute("total", total);
+		} else {
+			return "redirect:/home";
+		}
+		return "check_out";
 	}
 
 }

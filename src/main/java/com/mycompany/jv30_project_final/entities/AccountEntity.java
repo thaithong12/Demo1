@@ -31,7 +31,50 @@ public class AccountEntity implements Serializable {
     private int id;
 
     private String email;
-    private String password;
+    
+    
+    private String name;
+    private String address;
+    private String phone;
+    
+    
+    public AccountEntity(int id, String email, String name, String address, String phone, String password,
+			List<AccountRoleEntity> accountRoles) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
+		this.password = password;
+		this.accountRoles = accountRoles;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	private String password;
 
     @ManyToMany(cascade = {CascadeType.PERSIST,
         CascadeType.MERGE}, fetch = FetchType.LAZY)
