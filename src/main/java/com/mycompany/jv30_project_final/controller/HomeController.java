@@ -28,6 +28,7 @@ import com.mycompany.jv30_project_final.entities.CommentEntity;
 import com.mycompany.jv30_project_final.entities.ProductColorEntity;
 import com.mycompany.jv30_project_final.entities.ProductEntity;
 import com.mycompany.jv30_project_final.entities.VoteEntity;
+import com.mycompany.jv30_project_final.model.AccountInfoModel;
 import com.mycompany.jv30_project_final.model.ProductModel;
 import com.mycompany.jv30_project_final.service.CategoryService;
 import com.mycompany.jv30_project_final.service.CommentService;
@@ -134,22 +135,49 @@ public class HomeController {
 		}
 		return "store";
 	}
-	
 
 	@RequestMapping(value = "/checkout", method = RequestMethod.GET)
-	public String viewCheckOut ( Model model ,HttpSession session) {
-		
+	public String viewCheckOut(Model model, HttpSession session) {
+		AccountEntity user = (AccountEntity) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		List<ProductModel> carts = (List<ProductModel>) session.getAttribute("cart");
-		if(!CollectionUtils.isEmpty(carts)) {
+		if (!CollectionUtils.isEmpty(carts)) {
 			model.addAttribute("ghs", carts);
 			double total = 0;
-			for(ProductModel p : carts) 
-				total += p.getPrice() + p.getQuantity();
+			for (ProductModel p : carts) {
+				total += p.getPrice() * p.getQuantity();
+			}
+			AccountInfoModel p =  new AccountInfoModel(user.getEmail(), user.getAddress(), user.getName(), user.getPhone());
+			model.addAttribute("accountInfo",p);
 			model.addAttribute("total", total);
 		} else {
 			return "redirect:/home";
 		}
 		return "check_out";
+	}
+
+	@RequestMapping(value = "/delete-cart", method = RequestMethod.GET)
+	public String viewCheckOut(Model model, HttpSession session, @RequestParam("pId") int pId,
+			@RequestParam("cId") int cId) {
+
+		
+		final int productId = pId;
+		final int colorId = cId;
+		List<ProductModel> carts = (List<ProductModel>) session.getAttribute("cart");
+		if (!CollectionUtils.isEmpty(carts)) {
+			ProductModel p = carts.stream()
+					.filter(item -> item.getColorId() == colorId && productId == item.getProductId()).findFirst()
+					.orElse(null);
+			if (!ObjectUtils.isEmpty(p)) {
+				carts.remove(p);
+			}
+			if (carts.size() == 0) {
+				session.removeAttribute("cart");
+			}
+
+		} else {
+			return "redirect:/home";
+		}
+		return viewCheckOut(model, session);
 	}
 
 }

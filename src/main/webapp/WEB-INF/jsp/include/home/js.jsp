@@ -8,3 +8,4 @@
 <script src="<c:url value="resources/js/nouislider.min.js"/>"></script>
 <script src="<c:url value="resources/js/jquery.zoom.min.js"/>"></script>
 <script src="<c:url value="resources/js/main.js"/>"></script>
+<script src="<c:url value="resources/js/custom-home.js"/>"></script>

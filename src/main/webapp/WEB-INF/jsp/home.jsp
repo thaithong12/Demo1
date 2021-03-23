@@ -6,8 +6,10 @@
 <html>
 	<jsp:include page="include/home/head.jsp" />
 <body>
-	<jsp:include page="include/home/body_header_top.jsp" />
-	<jsp:include page="include/home/body_header_search.jsp" />
+	<header>
+		<jsp:include page="include/product/body_header_top.jsp" />
+		<jsp:include page="include/product/body_header_search.jsp" />
+	</header>
 	<jsp:include page="include/home/body_header_navigation.jsp" />
 	<jsp:include page="include/home/new_products.jsp" />
 	<jsp:include page="include/home/hot_deal.jsp" />

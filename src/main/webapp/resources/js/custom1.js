@@ -66,7 +66,6 @@ $(document).ready(function() {
 	let a = document.getElementsByClassName("product-widget")[0].cloneNode(true);
 	
 	document.getElementById("btn-info-cart").addEventListener("click", (e) => {
-		
 		//document.getElementsByClassName("product-widget")[0].remove
 		$(".product-widget").first().remove();
 		//console.log(a);

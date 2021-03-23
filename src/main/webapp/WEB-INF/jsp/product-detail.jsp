@@ -21,6 +21,5 @@
 	<jsp:include page="include/product/news_letter.jsp" />
 	<jsp:include page="include/product/footer.jsp" />
 	<jsp:include page="include/product/js.jsp" />
-
 </body>
 </html>
