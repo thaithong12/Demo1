@@ -24,4 +24,12 @@ public class AccountService {
             findAccountByEmailAndPassword(String email, String password) {
         return accountRepository.findAccountByEmailAndPassword(email, password);
     }
+    
+    public AccountEntity findByEmail(String email) {
+    	return accountRepository.findByEmailLike(email);
+    }
+    
+    public void saveAccountEntity(AccountEntity ac) {
+    	accountRepository.save(ac);
+    }
 }

@@ -28,4 +28,5 @@ public interface ProductRepository extends CrudRepository<ProductEntity, Integer
 	public List<ProductEntity> getTopSellingProduct();
 	
 	public List<ProductEntity> findByCategoryEntity(CategoryEntity categoryEntity);
+	
 }

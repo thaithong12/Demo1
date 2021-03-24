@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,9 +25,11 @@ public class CreditCardEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@NotBlank(message = "khong the bo trong")
 	private String name;
 	
 	@Column(name = "card_number")
+	@NotBlank(message = "khong the bo trong")
 	private String cardNumber;
 	
 	@Column(name = "exp_date")
@@ -35,6 +38,7 @@ public class CreditCardEntity {
 	private Date expDate;
 	
 	@Column(name = "cvc_code")
+	@NotBlank(message = "khong the bo trong")
 	private String cvcCode;
 	
 	private double Balance;

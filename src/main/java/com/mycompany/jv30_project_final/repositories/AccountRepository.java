@@ -21,6 +21,8 @@ public interface AccountRepository extends
 
     AccountEntity findByEmailLikeAndPasswordLike(
             String email, String password);
+    
+    AccountEntity findByEmailLike( String email);
 
     @Query("Select acc From AccountEntity acc "
             + "Join fetch acc.accountRoles "

@@ -14,6 +14,13 @@
 
     <script type="text/javascript" src="<c:url value="resources/payment/js/jquery-1.10.2.min.js"/>"></script>
     <script type="text/javascript" src="<c:url value="resources/payment/bootstrap/js/bootstrap.min.js"/>"></script>
+    <style type="text/css">
+    	.error{
+    		color: red;
+    	}
+    
+    
+    </style>
 </head>
 <body>
 
@@ -30,6 +37,7 @@
         <div class="col-xs-12 col-md-4 col-md-offset-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
+                	${messages}
                     <div class="row">
                         <h3 class="text-center">Payment Details</h3>
                         <img class="img-responsive cc-img" src="http://www.prepbootstrap.com/Content/images/shared/misc/creditcardicons.png">
@@ -43,6 +51,7 @@
                                     <label>CARD NUMBER</label>
                                     <div class="input-group">
                                     	<form:input path="cardNumber"/>
+                                    	<form:errors path="cardNumber" cssClass="error"/>
                                 
                                         <span class="input-group-addon"><span class="fa fa-credit-card"></span></span>
                                     </div>
@@ -55,13 +64,14 @@
                                     <label><span class="hidden-xs">EXPIRATION</span><span class="visible-xs-inline">EXP</span> DATE</label>
                                     
                                     <form:input path="expDate"/>
-                                    
+                                    <form:errors path="expDate" cssClass="error"/>
                                 </div>
                             </div>
                             <div class="col-xs-5 col-md-5 pull-right">
                                 <div class="form-group">
                                     <label>CV CODE</label>
                                     <form:input path="cvcCode"/>
+                                    <form:errors path="cvcCode" cssClass="error" />
                                 </div>
                             </div>
                         </div>
@@ -70,6 +80,7 @@
                                 <div class="form-group">
                                     <label>CARD OWNER</label>
                                    <form:input path="name"/>
+                                     <form:errors path="name" cssClass="error"/>
                                 </div>
                             </div>
                         </div>

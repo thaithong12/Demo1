@@ -121,6 +121,20 @@ public class HomeController {
 
 		return "store";
 	}
+	
+	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
+	public String viewSearchProduct(Model model, @RequestParam("search") String search) {
+		List<CategoryEntity> categoryEntities = categoryService.getAllCategories();
+		List<ProductEntity> productEntities = categoryService.getListProductByCategoryName(search);
+
+		if (!CollectionUtils.isEmpty(productEntities))
+			model.addAttribute("products", productEntities);
+		if (!CollectionUtils.isEmpty(categoryEntities)) {
+			model.addAttribute("categories", categoryEntities);
+		}
+
+		return "store";
+	}
 
 	@RequestMapping(value = "/store-detail", method = RequestMethod.GET)
 	public String viewDetailsCategory(@RequestParam("id") int id, Model model) {
